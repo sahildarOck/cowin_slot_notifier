@@ -8,18 +8,22 @@ public class District {
 
     private int districtId;
     private String districtName;
-    private String[] channels;
-    private long lastSlackNotifiedForNonAvailabilityTime;
-    private long lastSlackNotifiedForAvailabilityTime;
-    private boolean slackOnceNotifiedForNonAvailability;
-    private boolean slackOnceNotifiedForAvailability;
+    private String[] slackChannels;
+    private String[] telegramChannelIDs;
+    private long lastNotifiedForNonAvailabilityTime;
+    private long lastNotifiedForAvailabilityTime;
+    private boolean onceNotifiedForNonAvailability;
+    private boolean onceNotifiedForAvailability;
     private String lastSlackTextSentOnAvailability;
     private boolean slotAvailableOnLastRequest;
+    private boolean covaxin;
+    private boolean covishield;
 
-    private District(int districtId, String districtName, String... channels) {
+    private District(int districtId, String districtName, String[] slackChannels, String[] telegramChannelIDs) {
         this.districtId = districtId;
         this.districtName = districtName;
-        this.channels = channels;
+        this.slackChannels = slackChannels;
+        this.telegramChannelIDs = telegramChannelIDs;
     }
 
     public int getDistrictId() {
@@ -38,51 +42,59 @@ public class District {
         this.districtName = districtName;
     }
 
-    public static District getObject(int districtId, String districtName, String... channels) {
-        if (channels.length == 0) {
-            throw new RuntimeException("No channels passed while instantating object for district: " + districtName);
-        }
-        return new District(districtId, districtName, channels);
+    public static District getObject(int districtId, String districtName, String[] slackChannels, String[] telegramChannelIDs) {
+//        if (slackChannels.length == 0) {
+//            throw new RuntimeException("No slackChannels passed while instantating object for district: " + districtName);
+//        }
+        return new District(districtId, districtName, slackChannels, telegramChannelIDs);
     }
 
-    public String[] getChannels() {
-        return channels;
+    public String[] getSlackChannels() {
+        return slackChannels;
     }
 
-    public void setChannels(String[] channels) {
-        this.channels = channels;
+    public void setSlackChannels(String[] slackChannels) {
+        this.slackChannels = slackChannels;
     }
 
-    public long getLastSlackNotifiedForNonAvailabilityTime() {
-        return lastSlackNotifiedForNonAvailabilityTime;
+    public String[] getTelegramChannelIDs() {
+        return telegramChannelIDs;
     }
 
-    public void setLastSlackNotifiedForNonAvailabilityTime(long lastSlackNotifiedForNonAvailabilityTime) {
-        this.lastSlackNotifiedForNonAvailabilityTime = lastSlackNotifiedForNonAvailabilityTime;
+    public void setTelegramChannelIDs(String[] telegramChannelIDs) {
+        this.telegramChannelIDs = telegramChannelIDs;
     }
 
-    public long getLastSlackNotifiedForAvailabilityTime() {
-        return lastSlackNotifiedForAvailabilityTime;
+    public long getLastNotifiedForNonAvailabilityTime() {
+        return lastNotifiedForNonAvailabilityTime;
     }
 
-    public void setLastSlackNotifiedForAvailabilityTime(long lastSlackNotifiedForAvailabilityTime) {
-        this.lastSlackNotifiedForAvailabilityTime = lastSlackNotifiedForAvailabilityTime;
+    public void setLastNotifiedForNonAvailabilityTime(long lastNotifiedForNonAvailabilityTime) {
+        this.lastNotifiedForNonAvailabilityTime = lastNotifiedForNonAvailabilityTime;
     }
 
-    public boolean isSlackOnceNotifiedForNonAvailability() {
-        return slackOnceNotifiedForNonAvailability;
+    public long getLastNotifiedForAvailabilityTime() {
+        return lastNotifiedForAvailabilityTime;
     }
 
-    public void setSlackOnceNotifiedForNonAvailability(boolean slackOnceNotifiedForNonAvailability) {
-        this.slackOnceNotifiedForNonAvailability = slackOnceNotifiedForNonAvailability;
+    public void setLastNotifiedForAvailabilityTime(long lastNotifiedForAvailabilityTime) {
+        this.lastNotifiedForAvailabilityTime = lastNotifiedForAvailabilityTime;
     }
 
-    public boolean isSlackOnceNotifiedForAvailability() {
-        return slackOnceNotifiedForAvailability;
+    public boolean isOnceNotifiedForNonAvailability() {
+        return onceNotifiedForNonAvailability;
     }
 
-    public void setSlackOnceNotifiedForAvailability(boolean slackOnceNotifiedForAvailability) {
-        this.slackOnceNotifiedForAvailability = slackOnceNotifiedForAvailability;
+    public void setOnceNotifiedForNonAvailability(boolean onceNotifiedForNonAvailability) {
+        this.onceNotifiedForNonAvailability = onceNotifiedForNonAvailability;
+    }
+
+    public boolean isOnceNotifiedForAvailability() {
+        return onceNotifiedForAvailability;
+    }
+
+    public void setOnceNotifiedForAvailability(boolean onceNotifiedForAvailability) {
+        this.onceNotifiedForAvailability = onceNotifiedForAvailability;
     }
 
     public String getLastSlackTextSentOnAvailability() {
